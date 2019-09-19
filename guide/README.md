@@ -333,10 +333,10 @@ NOTE: The types are `<String, Book>`, matching the key type (`String`) with the 
 
 The `public static void main` uses Spring Boot's `SpringApplication.run()` to launch the application and invoke the `CommandLineRunner` that builds the relationships.
 
-**Note:**
-For newer version please add:
-`--spring.main.allow-bean-definition-overriding=true --spring.main.web-application-type=none`
-For the program arguments.
+**Note:** <br />
+For newer version please add:<br />
+`--spring.main.allow-bean-definition-overriding=true --spring.main.web-application-type=none`<br />
+For the program arguments.<br />
 
 The application autowires an instance of `BookRepository` that you just defined. Spring Data XAP will dynamically create a concrete class that implements that interface and will plug in the needed query code to meet the interface's obligations. This repository instance is the used by the `run()` method to demonstrate the functionality.
 
