@@ -45,6 +45,28 @@ def myCheckArg(args=None):
                         default='false', action='store_true')
     return verboseHandle.checkAndEnableVerbose(parser, sys.argv[1:])
 
+def handleException(e):
+    logger.info("handleException()")
+    trace = []
+    tb = e.__traceback__
+    while tb is not None:
+        trace.append({
+            "filename": tb.tb_frame.f_code.co_filename,
+            "name": tb.tb_frame.f_code.co_name,
+            "lineno": tb.tb_lineno
+        })
+        tb = tb.tb_next
+    logger.error(str({
+        'type': type(e).__name__,
+        'message': str(e),
+        'trace': trace
+    }))
+    verboseHandle.printConsoleError((str({
+        'type': type(e).__name__,
+        'message': str(e),
+        'trace': trace
+    })))
+
 def getHostConfiguration():
     hostsConfig=""
     hostConfigArray=[]
@@ -351,6 +373,8 @@ if __name__ == '__main__':
         ## Execution script flow diverted to this file hence major changes required and others scripts will going to distrub
 
     except Exception as e:
+        handleException(e)
         logger.error("Invalid argument. "+str(e))
-        verboseHandle.printConsoleError("Invalid argument.")
+        #verboseHandle.printConsoleError("Invalid argument.")
+
 
